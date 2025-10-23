@@ -1,414 +1,325 @@
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import Icon from '@/components/ui/icon'
+import { useState } from 'react';
+import Icon from '@/components/ui/icon';
+import { Button } from '@/components/ui/button';
 
-const Index = () => {
-  const [activeSection, setActiveSection] = useState('home')
+export default function Index() {
+  const [activeProject, setActiveProject] = useState(0);
 
-  const services = [
+  const projects = [
     {
-      icon: 'Smartphone',
-      title: 'Ремонт смартфонов',
-      description: 'Замена экранов, батарей, восстановление после воды',
-      price: 'от 1 500 ₽',
-      features: ['Бесплатная диагностика', 'Гарантия 6 месяцев', 'Оригинальные запчасти']
+      title: 'Shadow Runner',
+      category: 'Action Platformer',
+      description: 'Динамичный платформер в стиле киберпанк с уникальной механикой теней',
+      image: 'https://cdn.poehali.dev/projects/2739f958-72a8-4f5b-8dfd-cf9c23d69a82/files/71b3f34f-e445-4d8b-b4a6-520a3b75404f.jpg',
+      tech: ['Unity', 'C#', 'Pixel Art']
     },
     {
-      icon: 'Laptop',
-      title: 'Ремонт ноутбуков',
-      description: 'Чистка, замена компонентов, восстановление системы',
-      price: 'от 2 000 ₽',
-      features: ['Бесплатная диагностика', 'Выезд на дом', 'Профилактика']
+      title: 'Neon Escape',
+      category: 'Puzzle Adventure',
+      description: 'Атмосферная головоломка с элементами исследования в неоновом мире',
+      image: 'https://cdn.poehali.dev/projects/2739f958-72a8-4f5b-8dfd-cf9c23d69a82/files/4ac549e1-6fe3-4377-a0a3-823fb3aa59eb.jpg',
+      tech: ['Godot', 'GDScript', '2D Animation']
     },
     {
-      icon: 'Monitor',
-      title: 'Ремонт ПК',
-      description: 'Диагностика и ремонт настольных компьютеров',
-      price: 'от 1 000 ₽',
-      features: ['Бесплатная диагностика', 'Апгрейд железа', 'Настройка ПО']
-    },
-    {
-      icon: 'HardDrive',
-      title: 'Сборка ПК',
-      description: 'Индивидуальная сборка под любой бюджет и задачи',
-      price: 'от 3 000 ₽',
-      features: ['Консультация по железу', 'Тестирование', 'Гарантия на сборку']
+      title: 'Crimson Blocks',
+      category: 'Logic Puzzle',
+      description: 'Минималистичная головоломка с геометрическими фигурами и сложными уровнями',
+      image: 'https://cdn.poehali.dev/projects/2739f958-72a8-4f5b-8dfd-cf9c23d69a82/files/b7341ae5-35b5-4d9f-aa9f-9237e5446623.jpg',
+      tech: ['Unity', 'Shaders', 'Procedural Gen']
     }
-  ]
+  ];
 
-  const reviews = [
-    {
-      name: 'Александр М.',
-      rating: 5,
-      text: 'Быстро и качественно отремонтировали ноутбук. Диагностика действительно бесплатная!',
-      service: 'Ремонт ноутбука'
-    },
-    {
-      name: 'Мария К.',
-      rating: 5,
-      text: 'Собрали игровой ПК под мой бюджет. Все работает отлично, очень доволен результатом.',
-      service: 'Сборка ПК'
-    },
-    {
-      name: 'Дмитрий П.',
-      rating: 5,
-      text: 'Отличный сервис! Починили телефон за день, цены адекватные.',
-      service: 'Ремонт телефона'
-    }
-  ]
-
-  const navItems = [
-    { id: 'home', label: 'Главная', icon: 'Home' },
-    { id: 'services', label: 'Услуги', icon: 'Settings' },
-    { id: 'reviews', label: 'Отзывы', icon: 'Star' },
-    { id: 'repair', label: 'Ремонт', icon: 'Wrench' },
-    { id: 'build', label: 'Сборка', icon: 'Cpu' }
-  ]
-
-  const scrollToSection = (sectionId: string) => {
-    setActiveSection(sectionId)
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const skills = [
+    { icon: 'Gamepad2', name: 'Game Design', level: 95 },
+    { icon: 'Code2', name: 'Programming', level: 90 },
+    { icon: 'Palette', name: 'Pixel Art', level: 85 },
+    { icon: 'Music', name: 'Sound Design', level: 80 }
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-dark-medium via-dark-light to-accent font-open-sans">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-dark/95 backdrop-blur-md border-b border-primary/20 z-50">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      <div className="fixed inset-0 bg-gradient-to-br from-black via-dark-medium to-black opacity-90 pointer-events-none" />
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+      
+      <nav className="relative z-50 border-b border-primary/20 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-montserrat font-bold text-white">
-              TechRepair
+            <div className="flex items-center gap-3 group cursor-pointer">
+              <div className="relative">
+                <Icon name="Gamepad2" className="text-primary animate-glow-pulse" size={32} />
+                <div className="absolute inset-0 blur-xl bg-primary/30 animate-glow-pulse" />
+              </div>
+              <span className="text-2xl font-heading font-bold tracking-wider">
+                DEV<span className="text-primary">GAMES</span>
+              </span>
             </div>
-            <div className="hidden md:flex space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                    activeSection === item.id
-                      ? 'bg-primary text-white'
-                      : 'text-gray-300 hover:text-white hover:bg-primary/20'
-                  }`}
-                >
-                  <Icon name={item.icon as any} size={18} />
-                  <span>{item.label}</span>
-                </button>
-              ))}
+            
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#projects" className="hover:text-primary transition-colors">Проекты</a>
+              <a href="#skills" className="hover:text-primary transition-colors">Навыки</a>
+              <a href="#about" className="hover:text-primary transition-colors">Обо мне</a>
+              <a href="#contact" className="hover:text-primary transition-colors">Контакты</a>
             </div>
-            <Button className="bg-primary hover:bg-primary-dark">
-              Заказать звонок
+
+            <Button className="bg-primary hover:bg-primary-dark text-white font-semibold px-6">
+              Связаться
             </Button>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-32 pb-20 px-4">
-        <div className="container mx-auto">
+      <section className="relative pt-32 pb-20">
+        <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <Badge className="mb-6 bg-primary/20 text-primary border-primary">
-                Бесплатная диагностика
-              </Badge>
-              <h1 className="text-5xl lg:text-6xl font-montserrat font-bold text-white mb-6">
-                Ремонт электроники
-                <span className="text-primary block">любой сложности</span>
+            <div className="space-y-6 animate-fade-in">
+              <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full">
+                <span className="text-primary font-semibold">2D Game Developer</span>
+              </div>
+              
+              <h1 className="text-6xl lg:text-7xl font-heading font-black leading-tight">
+                Создаю <span className="text-primary relative">
+                  игры
+                  <div className="absolute -inset-2 bg-primary/20 blur-2xl -z-10" />
+                </span>
+                <br />которые вдохновляют
               </h1>
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Профессиональный ремонт смартфонов, ноутбуков, ПК и сборка компьютеров под любой бюджет. 
-                Гарантия качества и бесплатная диагностика.
+              
+              <p className="text-xl text-muted-foreground max-w-xl leading-relaxed">
+                Разрабатываю уникальные 2D игры с акцентом на геймплей, атмосферу и визуальный стиль. 
+                От идеи до релиза.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-primary hover:bg-primary-dark text-lg px-8 py-4">
-                  <Icon name="Phone" size={20} className="mr-2" />
-                  Бесплатная диагностика
+
+              <div className="flex gap-4 pt-4">
+                <Button size="lg" className="bg-primary hover:bg-primary-dark text-white font-bold px-8 group">
+                  Мои проекты
+                  <Icon name="ArrowRight" className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white text-lg px-8 py-4">
-                  <Icon name="Calculator" size={20} className="mr-2" />
-                  Рассчитать стоимость
+                <Button size="lg" variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                  Скачать резюме
                 </Button>
-              </div>
-              <div className="grid grid-cols-3 gap-6 mt-12">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">500+</div>
-                  <div className="text-gray-400">Довольных клиентов</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">5 лет</div>
-                  <div className="text-gray-400">На рынке</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-                  <div className="text-gray-400">Поддержка</div>
-                </div>
               </div>
             </div>
-            <div className="animate-scale-in">
-              <img
-                src="/img/dde78a5c-f352-4216-ba8c-daa6f455196a.jpg"
-                alt="Мастерская по ремонту электроники"
-                className="rounded-2xl shadow-2xl w-full"
-              />
+
+            <div className="relative animate-float">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent blur-3xl" />
+              <div className="relative aspect-square rounded-2xl border border-primary/30 bg-dark-light overflow-hidden">
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(220,38,38,.1)_50%,transparent_75%)] bg-[length:250px_250px] animate-[slide_3s_linear_infinite]" />
+                <img 
+                  src={projects[0].image} 
+                  alt="Hero"
+                  className="w-full h-full object-cover opacity-80"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl font-montserrat font-bold text-white mb-6">
-              Наши услуги
+      <section id="projects" className="relative py-20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-5xl font-heading font-bold mb-4">
+              Последние <span className="text-primary">проекты</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Полный спектр услуг по ремонту и обслуживанию электронной техники
-            </p>
+            <p className="text-muted-foreground text-lg">Игры, созданные с душой и вниманием к деталям</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <Card key={index} className="bg-dark-light/50 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 backdrop-blur-sm">
-                <CardHeader className="text-center">
-                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon name={service.icon as any} size={32} className="text-primary" />
-                  </div>
-                  <CardTitle className="text-white font-montserrat">{service.title}</CardTitle>
-                  <CardDescription className="text-gray-300">{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-primary mb-4 text-center">
-                    {service.price}
-                  </div>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-gray-300 text-sm">
-                        <Icon name="Check" size={16} className="text-primary mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full mt-6 bg-primary hover:bg-primary-dark">
-                    Заказать
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Reviews Section */}
-      <section id="reviews" className="py-20 px-4 bg-dark-medium/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-montserrat font-bold text-white mb-6">
-              Отзывы клиентов
-            </h2>
-            <p className="text-xl text-gray-300">
-              Что говорят о нас наши клиенты
-            </p>
-          </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {reviews.map((review, index) => (
-              <Card key={index} className="bg-dark-light/50 border-primary/20 backdrop-blur-sm">
-                <CardHeader>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
-                      <Icon name="User" size={24} className="text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-white text-lg">{review.name}</CardTitle>
-                      <div className="flex items-center">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Icon key={i} name="Star" size={16} className="text-yellow-400 fill-current" />
-                        ))}
-                      </div>
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => setActiveProject(index)}
+                className={`group relative cursor-pointer transition-all duration-300 ${
+                  activeProject === index ? 'scale-105' : 'hover:scale-105'
+                }`}
+              >
+                <div className={`relative overflow-hidden rounded-xl border-2 transition-all ${
+                  activeProject === index 
+                    ? 'border-primary shadow-[0_0_30px_rgba(220,38,38,0.3)]' 
+                    : 'border-primary/20 hover:border-primary/50'
+                }`}>
+                  <div className="aspect-video overflow-hidden bg-dark-light">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-sm font-semibold rounded-full mb-2">
+                      {project.category}
+                    </span>
+                    <h3 className="text-2xl font-heading font-bold mb-2">{project.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                    <div className="flex gap-2">
+                      {project.tech.map((tech, i) => (
+                        <span key={i} className="text-xs px-2 py-1 bg-dark-light/50 rounded">
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 mb-4">"{review.text}"</p>
-                  <Badge variant="outline" className="border-primary text-primary">
-                    {review.service}
-                  </Badge>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Repair Section */}
-      <section id="repair" className="py-20 px-4">
-        <div className="container mx-auto">
+      <section id="skills" className="relative py-20 bg-dark-light/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-heading font-bold mb-4">
+              Мои <span className="text-primary">навыки</span>
+            </h2>
+            <p className="text-muted-foreground text-lg">Технологии и инструменты, которыми я владею</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {skills.map((skill, index) => (
+              <div key={index} className="group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <Icon name={skill.icon as any} className="text-primary" size={24} />
+                    <span className="font-heading font-semibold text-lg">{skill.name}</span>
+                  </div>
+                  <span className="text-primary font-bold">{skill.level}%</span>
+                </div>
+                <div className="h-3 bg-dark-medium rounded-full overflow-hidden border border-primary/20">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary-dark to-primary transition-all duration-1000 ease-out group-hover:animate-glow-pulse"
+                    style={{ width: `${skill.level}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="relative py-20">
+        <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-montserrat font-bold text-white mb-6">
-                Экспресс-ремонт
+            <div className="space-y-6">
+              <h2 className="text-5xl font-heading font-bold mb-6">
+                Обо <span className="text-primary">мне</span>
               </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Быстрый и качественный ремонт с гарантией. Бесплатная диагностика неисправностей.
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Привет! Я независимый разработчик 2D игр с более чем 5-летним опытом создания 
+                уникальных игровых миров. Специализируюсь на платформерах, головоломках и 
+                атмосферных инди-играх.
               </p>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <Icon name="Clock" size={24} className="text-primary" />
-                  <span className="text-gray-300">Диагностика за 15 минут</span>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Мой подход — это сочетание технического мастерства, креативного дизайна и 
+                внимания к деталям. Каждая игра — это история, которую я хочу рассказать 
+                через геймплей и визуальный стиль.
+              </p>
+
+              <div className="grid grid-cols-3 gap-6 pt-6">
+                <div className="text-center p-4 bg-dark-light/50 rounded-lg border border-primary/20">
+                  <div className="text-3xl font-heading font-bold text-primary mb-1">15+</div>
+                  <div className="text-sm text-muted-foreground">Проектов</div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <Icon name="Shield" size={24} className="text-primary" />
-                  <span className="text-gray-300">Гарантия до 12 месяцев</span>
+                <div className="text-center p-4 bg-dark-light/50 rounded-lg border border-primary/20">
+                  <div className="text-3xl font-heading font-bold text-primary mb-1">5+</div>
+                  <div className="text-sm text-muted-foreground">Лет опыта</div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <Icon name="Truck" size={24} className="text-primary" />
-                  <span className="text-gray-300">Выезд мастера на дом</span>
+                <div className="text-center p-4 bg-dark-light/50 rounded-lg border border-primary/20">
+                  <div className="text-3xl font-heading font-bold text-primary mb-1">50K+</div>
+                  <div className="text-sm text-muted-foreground">Загрузок</div>
                 </div>
               </div>
             </div>
-            <Card className="bg-dark-light/50 border-primary/20 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white font-montserrat">Оставьте заявку</CardTitle>
-                <CardDescription className="text-gray-300">
-                  Получите бесплатную консультацию
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Ваше имя"
-                  className="w-full p-3 bg-dark/50 border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:border-primary focus:outline-none"
-                />
-                <input
-                  type="tel"
-                  placeholder="Номер телефона"
-                  className="w-full p-3 bg-dark/50 border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:border-primary focus:outline-none"
-                />
-                <textarea
-                  placeholder="Опишите проблему"
-                  rows={3}
-                  className="w-full p-3 bg-dark/50 border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:border-primary focus:outline-none resize-none"
-                />
-                <Button className="w-full bg-primary hover:bg-primary-dark">
-                  Отправить заявку
+
+            <div className="relative">
+              <div className="aspect-square rounded-2xl border-2 border-primary/30 bg-dark-light p-8">
+                <div className="grid grid-cols-2 gap-4 h-full">
+                  <div className="bg-dark-medium rounded-lg p-4 flex items-center justify-center hover:bg-primary/10 transition-colors cursor-pointer group">
+                    <Icon name="Code2" className="text-primary group-hover:scale-110 transition-transform" size={48} />
+                  </div>
+                  <div className="bg-dark-medium rounded-lg p-4 flex items-center justify-center hover:bg-primary/10 transition-colors cursor-pointer group">
+                    <Icon name="Palette" className="text-primary group-hover:scale-110 transition-transform" size={48} />
+                  </div>
+                  <div className="bg-dark-medium rounded-lg p-4 flex items-center justify-center hover:bg-primary/10 transition-colors cursor-pointer group">
+                    <Icon name="Gamepad2" className="text-primary group-hover:scale-110 transition-transform" size={48} />
+                  </div>
+                  <div className="bg-dark-medium rounded-lg p-4 flex items-center justify-center hover:bg-primary/10 transition-colors cursor-pointer group">
+                    <Icon name="Sparkles" className="text-primary group-hover:scale-110 transition-transform" size={48} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="relative py-20 bg-dark-light/30">
+        <div className="container mx-auto px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-5xl font-heading font-bold mb-6">
+              Начнем <span className="text-primary">проект?</span>
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Готов обсудить ваши идеи и воплотить их в захватывающую игру
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+              <Button size="lg" className="bg-primary hover:bg-primary-dark text-white font-bold px-8 group">
+                <Icon name="Mail" className="mr-2" size={20} />
+                Написать письмо
+              </Button>
+              <div className="flex gap-4">
+                <Button size="lg" variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                  <Icon name="Github" size={20} />
                 </Button>
-              </CardContent>
-            </Card>
+                <Button size="lg" variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                  <Icon name="Twitter" size={20} />
+                </Button>
+                <Button size="lg" variant="outline" className="border-primary/50 text-primary hover:bg-primary/10">
+                  <Icon name="Linkedin" size={20} />
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="p-6 bg-dark-medium/50 rounded-lg border border-primary/20">
+                <Icon name="Mail" className="text-primary mx-auto mb-3" size={32} />
+                <div className="text-sm text-muted-foreground mb-1">Email</div>
+                <div className="font-semibold">dev@games.com</div>
+              </div>
+              <div className="p-6 bg-dark-medium/50 rounded-lg border border-primary/20">
+                <Icon name="MapPin" className="text-primary mx-auto mb-3" size={32} />
+                <div className="text-sm text-muted-foreground mb-1">Локация</div>
+                <div className="font-semibold">Москва, Россия</div>
+              </div>
+              <div className="p-6 bg-dark-medium/50 rounded-lg border border-primary/20">
+                <Icon name="Clock" className="text-primary mx-auto mb-3" size={32} />
+                <div className="text-sm text-muted-foreground mb-1">Доступность</div>
+                <div className="font-semibold">24/7 онлайн</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Build Section */}
-      <section id="build" className="py-20 px-4 bg-dark-medium/30">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-montserrat font-bold text-white mb-6">
-            Сборка ПК под любой бюджет
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-            От офисного компьютера до мощной игровой станции. Подберем оптимальную конфигурацию под ваши задачи и бюджет.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="bg-dark-light/50 border-primary/20 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white font-montserrat">Офисный ПК</CardTitle>
-                <div className="text-3xl font-bold text-primary">от 25 000 ₽</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Работа с документами</li>
-                  <li>• Интернет и медиа</li>
-                  <li>• Тихая работа</li>
-                  <li>• Энергоэффективность</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="bg-dark-light/50 border-primary/20 backdrop-blur-sm transform scale-105">
-              <CardHeader>
-                <Badge className="mb-2 bg-primary text-white">Популярно</Badge>
-                <CardTitle className="text-white font-montserrat">Игровой ПК</CardTitle>
-                <div className="text-3xl font-bold text-primary">от 60 000 ₽</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Современные игры</li>
-                  <li>• Высокие настройки</li>
-                  <li>• Стабильный FPS</li>
-                  <li>• Возможность апгрейда</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="bg-dark-light/50 border-primary/20 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white font-montserrat">Рабочая станция</CardTitle>
-                <div className="text-3xl font-bold text-primary">от 100 000 ₽</div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Видеомонтаж</li>
-                  <li>• 3D-моделирование</li>
-                  <li>• Рендеринг</li>
-                  <li>• Профессиональные задачи</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          <Button size="lg" className="bg-primary hover:bg-primary-dark text-lg px-8 py-4">
-            <Icon name="MessageCircle" size={20} className="mr-2" />
-            Получить консультацию
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-dark py-12 px-4">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-2xl font-montserrat font-bold text-white mb-4">
-                TechRepair
-              </div>
-              <p className="text-gray-400 mb-4">
-                Профессиональный ремонт электроники и сборка ПК с гарантией качества.
-              </p>
-              <div className="flex space-x-4">
-                <Icon name="Phone" size={20} className="text-primary" />
-                <span className="text-gray-300">+7 (999) 123-45-67</span>
-              </div>
+      <footer className="relative border-t border-primary/20 py-8">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3">
+              <Icon name="Gamepad2" className="text-primary" size={24} />
+              <span className="font-heading font-bold">
+                DEV<span className="text-primary">GAMES</span>
+              </span>
             </div>
-            <div>
-              <h3 className="text-white font-montserrat font-semibold mb-4">Услуги</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>Ремонт смартфонов</li>
-                <li>Ремонт ноутбуков</li>
-                <li>Ремонт ПК</li>
-                <li>Сборка компьютеров</li>
-              </ul>
+            <div className="text-sm text-muted-foreground">
+              © 2024 DevGames. Все права защищены.
             </div>
-            <div>
-              <h3 className="text-white font-montserrat font-semibold mb-4">Контакты</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>г. Москва, ул. Примерная, 123</li>
-                <li>info@techrepair.ru</li>
-                <li>Пн-Вс: 9:00 - 21:00</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-montserrat font-semibold mb-4">Преимущества</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>Бесплатная диагностика</li>
-                <li>Гарантия до 12 месяцев</li>
-                <li>Выезд на дом</li>
-                <li>Качественные запчасти</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 TechRepair. Все права защищены.</p>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
-
-export default Index
